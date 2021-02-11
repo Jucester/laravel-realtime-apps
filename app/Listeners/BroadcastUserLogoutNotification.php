@@ -8,7 +8,7 @@ use Illuminate\Auth\Events\Logout;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class BroadcastUserLoginNotification
+class BroadcastUserLogoutNotification
 {
     /**
      * Create the event listener.

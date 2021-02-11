@@ -1,13 +1,11 @@
-const { default: Echo } = require('laravel-echo');
-
 require('./bootstrap');
 
-Echo.channel('notifications')
-    .listen('UserSessionChanged', () => {
+Echo.private('notifications')
+    .listen('UserSessionChanged', (e) => {
         console.log(e.message);
         console.log(e.type);
 
-        const notificationElement = document.querySelector('#notification');
+        const notificationElement = document.getElementById('notification');
 
         notificationElement.innerText = e.message;
 

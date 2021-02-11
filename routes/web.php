@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\UserSessionChanged;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('test', function () {
+    event(new UserSessionChanged('How are you', 'success'));
+    return "Event has been sent!";
+});
+
+Route::view('/users', 'users.showAll')->name('user.all');
 
 Auth::routes();
 
