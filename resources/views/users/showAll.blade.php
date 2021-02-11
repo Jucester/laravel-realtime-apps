@@ -29,6 +29,7 @@
 
                         users.forEach( (user, i) => {
                             let element = document.createElement('li');
+
                             element.setAttribute('id', user.id);
                             element.innerText = user.name;
 
@@ -39,6 +40,31 @@
                         console.log(err);
                     })
 
+    </script>
+
+    <script>
+        Echo.channel('users')
+            .listen('UserCreated', (e) => {
+                const usersList = document.getElementById('users');
+                let element = document.createElement('li');
+
+                element.setAttribute('id', e.user.id);
+                element.innerText = e.user.name;
+
+                usersList.appendChild(element);
+             
+            })
+            .listen('UserUpdated', (e) => {
+            
+                let user = document.getElementById(e.user.id);
+                user.innerText = e.user.name;
+
+            })
+            .listen('UserDeleted', (e) => {
+                let user = document.getElementById(e.user.id);
+                user.parentNode.removeChild(user);
+             
+            })
     </script>
 
 @endpush
