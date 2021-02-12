@@ -37,6 +37,11 @@ window.Echo = new Echo({
      broadcaster: 'pusher',
      key: '60c78538837e3539427f',
      cluster: 'us3',
-     forceTLS: false
+     forceTLS: false,
+     auth: {
+        headers: {
+            Authorization: 'Bearer ' + 'abfe99ca2f7c0f801218'
+        },
+    },
 });
 

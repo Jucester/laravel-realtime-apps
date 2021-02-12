@@ -19,16 +19,15 @@
                             <div class="row">
                                 
                                 <div class="col-12 border rounded-lg p-3">
-                                    <ul id="message" class="list-unstyled overflow-auto" style="height: 45vh">
-                                        <li> Andros: Hi </li>
-                                        <li> Doriangelo: Hi </li>
+                                    <ul id="messages" class="list-unstyled overflow-auto" style="height: 45vh">
+                                      
                                     </ul>
                                 </div>
                             </div>
-                            <form action="">
+                            <form>
                                 <div class="row py-3">
                                     <div class="col-10">
-                                        <input type="text" id="message" class="form-control">
+                                        <input id="message" type="text" class="form-control">
                                     </div>
                                     <div class="col-2">
                                         <button id="send" type="submit" class="btn btn-primary btn-block"> Send </button>
@@ -44,8 +43,7 @@
                                 class="list-unstyled overflow-auto text-info" 
                                 style="height: 45vh;"
                             >
-                                <li> Andros </li>
-                                <li> Ryan </li>
+                              
                             </ul>
                         </div>                    
                     </div>
@@ -59,9 +57,65 @@
 @push('scripts')
 
     <script>
+        const usersList = document.getElementById('users');
+        const messagesBox = document.getElementById('messages');
 
-          
+     
+        Echo.join('chat')
+            .here( (users) => {
             
+
+                users.forEach( (user, i) => {
+                            console.log(user)
+                            let element = document.createElement('li');
+
+                            element.setAttribute('id', user.id);
+                            element.innerText = user[1];
+
+                            usersList.appendChild(element);
+                        })
+            })
+            .joining( (user) => {
+                let element = document.createElement('li');
+
+                element.setAttribute('id', user.id);
+                element.innerText = user[1];
+
+                usersList.appendChild(element);
+            })
+            .leaving( (user) => {
+                let element = document.getElementById(user.id);
+                element.parentNode.removeChild(element);
+            })
+            .listen('MessageSend', (e) => {
+
+                let element = document.createElement('li');
+
+                element.setAttribute('id', e.user.id);
+                element.innerText = `${e.user.name} : ${e.message}`;
+
+                messagesBox.appendChild(element);
+            });
+            
+    </script>
+
+    <script>
+        const send = document.getElementById('send');
+        const message = document.getElementById('message');
+
+        send.addEventListener('click', (e) => {
+            const message = document.getElementById('message');
+            e.preventDefault();
+            console.log(message);
+
+            window.axios.post('/chat/message', {
+                message: message.value
+            });
+
+            message.value = "";
+
+        });
+
     </script>
    
 @endpush
