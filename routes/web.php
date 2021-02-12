@@ -30,3 +30,5 @@ Route::view('/game', 'game.show')->name('game.show');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/chat', [App\Http\Controllers\ChatController::class, 'show'])->name('show');
