@@ -130,5 +130,20 @@
 
         }
     </script>
+
+    <script>
+        Echo.private(`chat.greet.{{ auth()->user()->id }}`)
+            .listen('GreetingSend', (e) => {
+
+                let element = document.createElement('li');
+
+               
+                element.innerText = `${e.message}`;
+                element.classList.add('text-success');
+
+                messagesBox.appendChild(element);
+
+            });
+    </script>
    
 @endpush
