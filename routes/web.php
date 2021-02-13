@@ -34,3 +34,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/chat', [App\Http\Controllers\ChatController::class, 'show'])->name('show');
 
 Route::post('/chat/message', [App\Http\Controllers\ChatController::class, 'messageReceived'])->name('chat.message');
+
+Route::post('/chat/greet/{user}', [App\Http\Controllers\ChatController::class, 'greetingReceived'])->name('chat.greet');

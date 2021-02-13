@@ -2,7 +2,9 @@
 
 @push('styles')
     <style>
-   
+            #users > li {
+                cursor: pointer;
+            }
     </style>
 @endpush
 
@@ -70,6 +72,9 @@
                             let element = document.createElement('li');
 
                             element.setAttribute('id', user.id);
+
+                            element.setAttribute('onclick', 'greetUser("' + user.id +'")');
+                            
                             element.innerText = user[1];
 
                             usersList.appendChild(element);
@@ -116,6 +121,14 @@
 
         });
 
+    </script>
+
+    <script>
+        const greetUser = (id) => {
+            console.log(id);
+            window.axios.post(`/chat/greet/${id}`);
+
+        }
     </script>
    
 @endpush
